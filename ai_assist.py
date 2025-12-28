@@ -2,11 +2,12 @@ import os
 import sys
 import json
 import google.generativeai as genai
+from typing import Dict, Any, Optional
 
 # 設定ファイルのパス
 CONFIG_FILE = 'config.json'
 
-def load_config():
+def load_config() -> Dict[str, Any]:
     """
     config.json から設定を読み込みます。
     """
@@ -24,7 +25,7 @@ def load_config():
         print(f"エラー: '{CONFIG_FILE}' の形式が正しくありません。正しいJSON形式か確認してください。")
         sys.exit(1)
 
-def setup_gemini(config):
+def setup_gemini(config: Dict[str, Any]) -> genai.GenerativeModel:
     """
     Gemini APIの初期設定を行います。
     """
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         user_prompt = " ".join(sys.argv[1:])
     else:
-        user_prompt = "Pythonで3Dガウシアン・スプラッティングの共分散行列を計算する関数を書いて"
+        user_prompt = "Pythonで二次関数を解くプログラムを書いて"
 
     print(f"質問: {user_prompt}")
     ask_ai(user_prompt)
