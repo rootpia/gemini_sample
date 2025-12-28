@@ -28,9 +28,16 @@ $ docker build -t gemini-sample .
 
 ## 使い方
 
+1回のみ返答
 ```
 $ docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample "ここにプロンプト"
 ```
+
+対話
+```
+$ docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
+```
+
 
 ## ライセンス
 
