@@ -14,7 +14,13 @@ $ cp config_sample.json config.json
 ```
 config.jsonを書き換える。  
 * google_api_key : APIキーを設定  
-* model_name : 任意文字列(gemini flash など)  
+    [Google AI Studio](https://aistudio.google.com/)にアクセスし、自身のアカウントでサインインする。  
+    左上のハンバーガーメニューの下部の「Get API key」を押下。  
+    遷移したページで「APIキーを作成」を押下し、「プロジェクトを作成」を選択。キー名の設定は任意（空白でもよい）。
+* model_name : 利用するモデル。時期によって恐らく変わるため注意。  
+    詳細：https://ai.google.dev/gemini-api/docs/models?hl=ja
+    gemini-3-flash-preview or gemini-3-pro-preview
+
 実行用のDockerイメージをビルド  
 ```
 $ docker build -t gemini-sample .
