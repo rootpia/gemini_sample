@@ -18,8 +18,8 @@ config.jsonを書き換える。
     左上のハンバーガーメニューの下部の「Get API key」を押下。  
     遷移したページで「APIキーを作成」を押下し、「プロジェクトを作成」を選択。キー名の設定は任意（空白でもよい）。
 * model_name : 利用するモデル。時期によって恐らく変わるため注意。  
+    gemini-3-flash-preview or gemini-3-pro-preview  
     詳細：https://ai.google.dev/gemini-api/docs/models?hl=ja
-    gemini-3-flash-preview or gemini-3-pro-preview
 
 実行用のDockerイメージをビルド  
 ```
@@ -28,16 +28,20 @@ $ docker build -t gemini-sample .
 
 ## 使い方
 
-1回のみ返答
+1回のみ返答(run1.sh)  
 ```
-$ docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample "ここにプロンプト"
-```
-
-対話
-```
-$ docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
+$ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample "ここにプロンプト"
 ```
 
+対話(run2.sh)  
+```
+$ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
+```
+
+WebAPI(run3.sh)  
+```
+$ sudo docker run --rm -v ${PWD}/config.json:/app/config.json --entrypoint python gemini-sample /app/main.py
+```
 
 ## ライセンス
 
