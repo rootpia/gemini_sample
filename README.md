@@ -29,12 +29,12 @@ $ docker build -t gemini-sample .
 ## 使い方
 
 ### 1回のみ返答(run1.sh)  
-```
+```shell
 $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample "ここにプロンプト"
 ```
 
 ### 対話(run2.sh)  
-```
+```shell
 $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
 ```
 
@@ -43,11 +43,17 @@ $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
 $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json -p 8888:8888 --entrypoint python gemini-sample /app/main.py
 ```
 別のターミナルから以下実行で動作確認する  
-```
+```shell
 $ curl http://127.0.0.1:8888/chat --json '{"message": "こんにちは"}'
 ```
-Powershellの場合、curlがうまく動かない？ため下記コマンドを実行  
+curlバージョンが古いとjsonオプションがない。その場合は以下。  
+```shell
+$ curl -X POST http://127.0.0.1:8888/chat \
+       -H "Content-Type: application/json" \
+       -d '{"message": "こんにちは"}'
 ```
+Powershellの場合は以下。  
+```shell
 $ $body = @{ message = "こんにちは" } | ConvertTo-Json
 $ Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8888/chat" -Body $body -ContentType "application/json"
 ```
