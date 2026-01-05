@@ -50,7 +50,7 @@ class GeminiChat:
         api_key = inst.config.get("google_api_key")
         if not api_key:
             raise ValueError("config.json に 'google_api_key' が設定されていません。")
-        inst.client =  genai.Client(api_key=api_key)
+        inst.client = genai.Client(api_key=api_key)
 
         # 4. チャットセッションを作成
         inst.model_name = inst.config.get("model_name", "gemini-3-flash-preview")
