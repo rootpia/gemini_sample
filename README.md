@@ -28,19 +28,28 @@ $ docker build -t gemini-sample .
 
 ## 使い方
 
-1回のみ返答(run1.sh)  
+### 1回のみ返答(run1.sh)  
 ```
 $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample "ここにプロンプト"
 ```
 
-対話(run2.sh)  
+### 対話(run2.sh)  
 ```
 $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json gemini-sample
 ```
 
-WebAPI(run3.sh)  
+### WebAPI(run3.sh)  
 ```
-$ sudo docker run --rm -v ${PWD}/config.json:/app/config.json --entrypoint python gemini-sample /app/main.py
+$ sudo docker run --rm -v ${PWD}/config.json:/app/config.json -p 8888:8888 --entrypoint python gemini-sample /app/main.py
+```
+別のターミナルから以下実行で動作確認する  
+```
+$ curl http://127.0.0.0:8888/chat --json '{"message": "こんにちは"}'
+```
+Powershellの場合、curlがうまく動かない？ため下記コマンドを実行  
+```
+$ $body = @{ message = "こんにちは" } | ConvertTo-Json
+$ Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8888/chat" -Body $body -ContentType "application/json"
 ```
 
 ## ライセンス
