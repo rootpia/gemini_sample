@@ -44,7 +44,7 @@ $ sudo docker run --rm -v ${PWD}/config.json:/app/config.json -p 8888:8888 --ent
 ```
 別のターミナルから以下実行で動作確認する  
 ```
-$ curl http://127.0.0.0:8888/chat --json '{"message": "こんにちは"}'
+$ curl http://127.0.0.1:8888/chat --json '{"message": "こんにちは"}'
 ```
 Powershellの場合、curlがうまく動かない？ため下記コマンドを実行  
 ```
