@@ -25,4 +25,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run debate.py when the container launches
-ENTRYPOINT ["python", "debate.py"]
+ENTRYPOINT ["python", "ai_assist.py"]

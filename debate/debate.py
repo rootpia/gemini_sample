@@ -2,7 +2,7 @@ import os
 import sys
 import time
 from typing import List
-from ai_assist import GeminiChat, CONFIG_FILE
+from chat.ai_assist import GeminiChat, CONFIG_FILE
 
 class DebateParticipant:
     """
