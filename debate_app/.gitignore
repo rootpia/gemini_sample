@@ -1,0 +1,22 @@
+# Sensitive configuration
+config.json
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
