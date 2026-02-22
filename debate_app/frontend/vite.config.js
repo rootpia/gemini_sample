@@ -5,8 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
     plugins: [react()],
     server: {
-        host: '0.0.0.0',  // Listen on all network interfaces
-        allowedHosts: ['localhost', 'mousegtune'],  // Allow access from these hostnames
+        host: '0.0.0.0',
+        allowedHosts: ['localhost', 'mousegtune'],
+        watch: {
+            usePolling: true,
+        },
         proxy: {
             '/api': {
                 target: 'http://backend:8000',  // Internal Docker port

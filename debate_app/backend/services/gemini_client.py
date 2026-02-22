@@ -48,23 +48,14 @@ class GeminiClient:
         )
 
     def send_message(self, message: str) -> str:
-        max_retries = 5
-        base_delay = 5
-
-        for attempt in range(max_retries + 1):
-            try:
-                response = self.chat.send_message(message)
-                return response.text
-            except Exception as e:
-                is_retryable = False
-                if isinstance(e, errors.ClientError):
-                    if e.code in [429, 503]:
-                        is_retryable = True
-                
-                if is_retryable and attempt < max_retries:
-                    delay = base_delay * (2 ** attempt)
-                    print(f"[{self.model_name}] API Error (429/503). Retrying in {delay}s... ({attempt + 1}/{max_retries})")
-                    time.sleep(delay)
-                else:
-                    raise e
-        return ""
+        try:
+            # Add a timeout to the request to prevent long hangs
+            # 115 seconds is slightly less than the frontend's 120s timeout
+            response = self.chat.send_message(
+                message, 
+                config={"http_options": {"timeout": 115000}} # Timeout in milliseconds
+            )
+            return response.text
+        except Exception as e:
+            # Let the caller/frontend handle retries
+            raise e

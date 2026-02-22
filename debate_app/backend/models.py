@@ -16,6 +16,7 @@ class Participant(Base):
     name = Column(String, unique=True, index=True)
     role = Column(Text)
     system_instruction = Column(Text)
+    temperature = Column(JSON, default=1.0) # Can be float, using JSON for flexibility or just Float
 
 class Debate(Base):
     __tablename__ = "debates"
@@ -24,10 +25,11 @@ class Debate(Base):
     topic = Column(String, index=True)
     rounds = Column(Integer, default=3)
     status = Column(String, default="active") # active, completed
-    config = Column(JSON, default={}) # model_name, temperature etc.
+    config = Column(JSON, default={}) # model_name, etc.
+    participant_order = Column(JSON, default=[]) # List of participant IDs in order
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    turns = relationship("DebateTurn", back_populates="debate")
+    turns = relationship("DebateTurn", back_populates="debate", order_by="DebateTurn.id")
 
 class DebateTurn(Base):
     __tablename__ = "debate_turns"

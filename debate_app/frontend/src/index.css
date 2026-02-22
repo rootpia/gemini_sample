@@ -19,9 +19,67 @@ body {
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   @apply bg-transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-white/20 rounded-full;
+}
+
+/* Markdown Table Styles */
+.markdown-content table {
+  @apply w-full border-collapse my-2 bg-white/5 rounded-lg overflow-hidden;
+}
+
+.markdown-content th {
+  @apply bg-white/10 text-left p-2 border border-white/10 font-bold;
+}
+
+.markdown-content td {
+  @apply p-2 border border-white/10;
+}
+
+.markdown-content p {
+  @apply mb-2 last:mb-0;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  @apply ml-6 mb-2;
+}
+
+.markdown-content li {
+  @apply list-disc;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  @apply font-bold mt-4 mb-2;
+}
+
+.markdown-content h1 {
+  @apply text-xl;
+}
+
+.markdown-content h2 {
+  @apply text-lg;
+}
+
+.markdown-content h3 {
+  @apply text-base;
+}
+
+.markdown-content strong {
+  @apply font-bold text-white;
+}
+
+.markdown-content em {
+  @apply italic text-slate-300;
+}
+
+.markdown-content code {
+  @apply bg-white/10 px-1 rounded font-mono text-sm;
 }

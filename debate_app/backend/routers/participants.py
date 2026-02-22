@@ -11,6 +11,7 @@ class ParticipantCreate(BaseModel):
     name: str
     role: str
     system_instruction: str
+    temperature: float = 1.0
 
 class ParticipantResponse(ParticipantCreate):
     id: int
@@ -31,6 +32,23 @@ def create_participant(participant: ParticipantCreate, db: Session = Depends(get
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=400, detail="Participant with this name already exists")
+    return db_participant
+
+@router.put("/{participant_id}", response_model=ParticipantResponse)
+def update_participant(participant_id: int, participant: ParticipantCreate, db: Session = Depends(get_db)):
+    db_participant = db.query(models.Participant).filter(models.Participant.id == participant_id).first()
+    if not db_participant:
+        raise HTTPException(status_code=404, detail="Participant not found")
+    
+    for key, value in participant.dict().items():
+        setattr(db_participant, key, value)
+    
+    try:
+        db.commit()
+        db.refresh(db_participant)
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error updating participant")
     return db_participant
 
 @router.delete("/{participant_id}")
